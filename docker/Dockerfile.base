@@ -1,0 +1,8 @@
+FROM centos:7
+
+RUN yum update \
+ && yum install -y sudo
+
+
+RUN sudo yum install libcurl-devel -y
+RUN adduser -u 1001 bazel

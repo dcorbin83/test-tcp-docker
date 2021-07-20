@@ -1,0 +1,30 @@
+version: "3"
+services:
+  server:
+    container_name: server
+    image: ghcr.io/kubecorn/test-crow/server:latest
+    networks:
+      - default
+    environment:
+      - CONTAINERIZED_ENV=true
+      - PORT_APP2=${SERVER_PORT}
+    volumes: 
+      - shared:/data/history:rw
+
+  client:
+    container_name: client
+    image: ghcr.io/kubecorn/test-crow/client:latest
+    #image: crow/apps/client:client_image
+    environment:
+      - CONTAINERIZED_ENV=true
+    networks:
+      - default
+    volumes:
+      - shared:/data/history:rw
+
+volumes: 
+    shared:
+
+networks:
+  default:
+    driver: bridge
